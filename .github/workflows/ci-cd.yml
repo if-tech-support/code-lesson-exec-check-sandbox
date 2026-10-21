@@ -67,3 +67,11 @@ jobs:
           DB_USERNAME: root
           DB_PASSWORD: root
         run: php artisan test
+
+  deploy:
+    needs: [test]
+    if: github.ref == 'refs/heads/exec-check/git/20261021-0225/laravel-staging'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Simulate deploy
+        run: echo "Deploying to staging..."
