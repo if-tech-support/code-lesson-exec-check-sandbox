@@ -1,59 +1,41 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# CI/CD 学習記録
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## CI/CD 構成
 
-## About Laravel
+| 教材ブランチ | sandbox上の代替 | CI | CD |
+|---|---|---|---|
+| main | exec-check/git/20261021-0430/laravel-main | PHP 8.4/8.5 matrix | skip |
+| develop | exec-check/git/20261021-0430/laravel-develop | PHP 8.4/8.5 matrix | skip |
+| staging | exec-check/git/20261021-0430/laravel-staging | PHP 8.4/8.5 matrix | テスト後echoのみ |
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## 使用技術
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- actions/checkout@v4: コード取得
+- shivammathur/setup-php@v2: PHP 8.4 / 8.5
+- actions/cache@v5: vendorをlockハッシュとPHP版別でキャッシュ
+- mysql:8.4: 一時DBサービス
+- Laravel 12 / Composer 2
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Branch Protection
 
-## Learning Laravel
+実行チェックの制約で設定変更は禁止。CI必須マージの効果は未検証。
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+## 追加した改善
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+B: PHP 8.4と8.5のmatrix。2版でテストし、キャッシュキーにPHP版も加える。
 
-## Laravel Sponsors
+## 実行結果
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+- exec-check/git/20261021-0430/laravel-main: success — https://github.com/if-tech-support/code-lesson-exec-check-sandbox/actions/runs/39546120197
+  ジョブ: test (8.5)=success, test (8.4)=success, deploy=skipped
+- exec-check/git/20261021-0430/laravel-develop: success — https://github.com/if-tech-support/code-lesson-exec-check-sandbox/actions/runs/39546226468
+  ジョブ: test (8.5)=success, test (8.4)=success, deploy=skipped
+- exec-check/git/20261021-0430/laravel-staging: success — https://github.com/if-tech-support/code-lesson-exec-check-sandbox/actions/runs/39546347986
+  ジョブ: test (8.5)=success, test (8.4)=success, deploy=success
 
-### Premium Partners
+## 自己評価
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+- [x] CIと模擬CDのブランチ別動作を実行ログで確認
+- [ ] 認証済みブラウザ画面: ログイン禁止で未検証
+- [ ] Branch Protection: 設定変更禁止で未検証
+- [ ] 本番へのデプロイ: 実施せず
