@@ -1,6 +1,7 @@
 name: Laravel CI/CD
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - exec-check/git/20261021-0430/laravel-main
