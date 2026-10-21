@@ -1,4 +1,5 @@
-![CI](https://github.com/if-tech-support/code-lesson-exec-check-sandbox/actions/workflows/ci-cd.yml/badge.svg?branch=exec-check%2Fgit%2F20261021-0915%2Flaravel-main)
+![Laravel CI](https://github.com/if-tech-support/code-lesson-exec-check-sandbox/actions/workflows/ci-cd.yml/badge.svg?branch=exec-check%2Fgit%2F20261021-0915%2Flaravel-main)
+
 
 ## CI/CD 構成
 
