@@ -28,3 +28,5 @@
 - exec-check/git/20261021-0915/laravel-main: https://github.com/if-tech-support/code-lesson-exec-check-sandbox/actions/runs/39577066501 (success)
 - exec-check/git/20261021-0915/laravel-develop: https://github.com/if-tech-support/code-lesson-exec-check-sandbox/actions/runs/39577069977 (success)
 - exec-check/git/20261021-0915/laravel-staging: https://github.com/if-tech-support/code-lesson-exec-check-sandbox/actions/runs/39577072729 (success)
+
+PRトリガーの確認
