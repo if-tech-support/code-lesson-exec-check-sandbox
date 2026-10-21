@@ -1,0 +1,6 @@
+# すべてのファイルは @your-team が担当
+*       @your-team
+
+# 特定のディレクトリは特定のメンバーに割り当て
+/frontend/   @frontend-dev
+/backend/    @backend-dev
