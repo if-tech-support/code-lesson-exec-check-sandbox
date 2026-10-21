@@ -1,4 +1,4 @@
-name: Laravel CI
+name: Laravel CI/CD
 
 on:
   push:
@@ -66,3 +66,11 @@ jobs:
           DB_USERNAME: root
           DB_PASSWORD: root
         run: php artisan test
+
+  deploy:
+    needs: [test]
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/exec-check/git/20261021-0430/laravel-staging'
+    steps:
+      - name: Simulate deploy
+        run: echo "Deploying to staging..."
