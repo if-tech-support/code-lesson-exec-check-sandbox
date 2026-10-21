@@ -4,7 +4,7 @@ on:
   push:
     branches: [exec-check/git/20261021-0915/laravel-main]
   pull_request:
-    branches: [exec-check/git/20261021-0915/laravel-main, exec-check/git/20261021-0915/laravel-develop]
+    branches: [exec-check/git/20261021-0915/laravel-main]
 
 jobs:
   test:
@@ -27,6 +27,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # TODO①: PHP バージョンを 8.4 に指定する
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
         with:
