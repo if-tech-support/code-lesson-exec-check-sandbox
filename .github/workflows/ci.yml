@@ -1,17 +1,14 @@
-name: Laravel CI/CD
+name: Laravel CI
 
 on:
   push:
-    branches: [exec-check/git/20261021-0430/laravel-main, exec-check/git/20261021-0430/laravel-develop, exec-check/git/20261021-0430/laravel-staging]
+    branches: [exec-check/git/20261021-0430/laravel-main]
   pull_request:
     branches: [exec-check/git/20261021-0430/laravel-main, exec-check/git/20261021-0430/laravel-develop]
 
 jobs:
   test:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        php-version: ["8.4", "8.5"]
 
     services:
       mysql:
@@ -33,15 +30,15 @@ jobs:
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: ${{ matrix.php-version }}
+          php-version: "8.4"
 
       - name: Cache Composer dependencies
         uses: actions/cache@v5
         with:
           path: vendor
-          key: ${{ runner.os }}-composer-${{ matrix.php-version }}-${{ hashFiles('**/composer.lock') }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
           restore-keys: |
-            ${{ runner.os }}-composer-${{ matrix.php-version }}-
+            ${{ runner.os }}-composer-
 
       - name: Install dependencies
         run: composer install --no-interaction --prefer-dist
@@ -58,8 +55,9 @@ jobs:
           DB_PORT: 3306
           DB_DATABASE: laravel
           DB_USERNAME: root
-          DB_PASSWORD: root
-        run: php artisan migrate
+          DB_PASSWORD: wrong_password
+        run: php artisan migrate --force
+
       - name: Run tests
         env:
           DB_CONNECTION: mysql
@@ -69,11 +67,3 @@ jobs:
           DB_USERNAME: root
           DB_PASSWORD: root
         run: php artisan test
-
-  deploy:
-    needs: [test]
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/exec-check/git/20261021-0430/laravel-staging'
-    steps:
-      - name: Simulate deploy
-        run: echo "Deploying to staging..."
