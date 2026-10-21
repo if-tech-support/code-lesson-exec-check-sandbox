@@ -4,7 +4,7 @@ on:
   push:
     branches: [exec-check/git/20261021-0225/laravel-main]
   pull_request:
-    branches: [exec-check/git/20261021-0225/laravel-main]
+    branches: [exec-check/git/20261021-0225/laravel-main, exec-check/git/20261021-0225/laravel-develop]
 
 jobs:
   test:
