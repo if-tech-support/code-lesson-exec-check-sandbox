@@ -1,0 +1,13 @@
+name: Say Hello
+
+on:
+  push:
+    branches:
+      - exec-check/git/20261021-0915/actions-main
+
+jobs:
+  hello_job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Greet the world
+        run: echo "Hello, GitHub Actions!"
