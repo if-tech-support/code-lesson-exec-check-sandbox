@@ -1,8 +1,11 @@
-name: Laravel CI
+name: Laravel CI/CD
 
 on:
   push:
-    branches: [exec-check/git/20261021-0225/laravel-main]
+    branches:
+      - exec-check/git/20261021-0225/laravel-main
+      - exec-check/git/20261021-0225/laravel-develop
+      - exec-check/git/20261021-0225/laravel-staging
   pull_request:
     branches: [exec-check/git/20261021-0225/laravel-main, exec-check/git/20261021-0225/laravel-develop]
 
@@ -67,3 +70,12 @@ jobs:
           DB_USERNAME: root
           DB_PASSWORD: root
         run: php artisan test
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: [test]
+    if: github.ref == 'refs/heads/exec-check/git/20261021-0225/laravel-staging'
+
+    steps:
+      - name: Simulate deploy
+        run: echo "Deploying to staging..."
