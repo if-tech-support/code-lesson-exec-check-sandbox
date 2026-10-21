@@ -3,11 +3,11 @@ name: Laravel CI/CD
 on:
   push:
     branches:
-      - exec-check/git/20261021-0915/laravel-main
+      - exec-check/git/20261021-0915/troubleshooting-main
       - exec-check/git/20261021-0915/laravel-develop
       - exec-check/git/20261021-0915/laravel-staging
   pull_request:
-    branches: [exec-check/git/20261021-0915/laravel-main, exec-check/git/20261021-0915/laravel-develop]
+    branches: [exec-check/git/20261021-0915/troubleshooting-main, exec-check/git/20261021-0915/laravel-develop]
 
 jobs:
   test:
